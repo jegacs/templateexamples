@@ -7,23 +7,49 @@ import (
 	"io/ioutil"
 )
 
+type Provider struct {
+	Name            string
+	WhithoutAccount bool
+	ProviderError   bool
+	Value           float64
+}
+
 type Info struct {
-	Info string
-	Link string
-	Variable bool
+	Organization string
+	ReportType   string
+	Providers    []Provider
 }
 
 func main() {
-	fmt.Println("la clasica")
+	fmt.Println("generando archivo")
 	t, err := template.ParseFiles("template.html")
 	if err != nil {
 		panic(err)
 	}
 
 	info := Info{
-		Info: "hola mariiiii",
-		Link: "www.avenidasiempreviva.com",
-		Variable: true,
+		Organization: "paquititous.com",
+		ReportType:   "Semanal",
+		Providers: []Provider{
+			Provider{
+				Name:            "shopify",
+				WhithoutAccount: false,
+				ProviderError:   false,
+				Value:           8.5,
+			},
+			Provider{
+				Name:            "google",
+				WhithoutAccount: false,
+				ProviderError:   false,
+				Value:           -15.6,
+			},
+			Provider{
+				Name:            "facebook",
+				WhithoutAccount: false,
+				ProviderError:   false,
+				Value:           18.1,
+			},
+		},
 	}
 
 	buf := new(bytes.Buffer)
@@ -32,7 +58,6 @@ func main() {
 	}
 
 	//message := buf.String()
-
 
 	//fmt.Println(message)
 
